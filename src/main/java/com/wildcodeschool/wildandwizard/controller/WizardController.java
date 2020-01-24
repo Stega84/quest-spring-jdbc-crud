@@ -12,45 +12,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class WizardController {
 
-    private WizardRepository repository = new WizardRepository();
+	private WizardRepository repository = new WizardRepository();
 
-    @GetMapping("/wizards")
-    public String getAll(Model model) {
+	@GetMapping("/wizards")
+	public String getAll(Model model) {
 
-        model.addAttribute("wizards", repository.findAll());
+		model.addAttribute("wizards", repository.findAll());
 
-        return "wizards";
-    }
+		return "wizards";
+	}
 
-    @GetMapping("/wizard")
-    public String getWizard(Model model,
-                            @RequestParam(required = false) Long id) {
+	@GetMapping("/wizard")
+	public String getWizard(Model model, @RequestParam(required = false) Long id) {
 
-        Wizard wizard = new Wizard();
-        if (id != null) {
-            wizard = repository.findById(id);
-        }
-        model.addAttribute("wizard", wizard);
+		Wizard wizard = new Wizard();
+		if (id != null) {
+			wizard = repository.findById(id);
+		}
+		model.addAttribute("wizard", wizard);
 
-        return "wizard";
-    }
+		return "wizard";
+	}
 
-    @PostMapping("/wizard")
-    public String postWizard(@ModelAttribute Wizard wizard) {
+	@PostMapping("/wizard")
+	public String postWizard(@ModelAttribute Wizard wizard) {
 
-        if (wizard.getId() != null) {
-            repository.update(wizard);
-        } else {
-            repository.save(wizard);
-        }
-        return "redirect:/wizards";
-    }
+		if (wizard.getId() != null) {
+			repository.update(wizard);
+		} else {
+			repository.save(wizard);
+		}
+		return "redirect:/wizards";
+	}
 
-    @GetMapping("/wizard/delete")
-    public String deleteWizard(@RequestParam Long id) {
+	@GetMapping("/wizard/delete")
+	public String deleteWizard(@RequestParam Long id) {
 
-        repository.deleteById(id);
+		repository.deleteById(id);
 
-        return "redirect:/wizards";
-    }
+		return "redirect:/wizards";
+	}
 }
