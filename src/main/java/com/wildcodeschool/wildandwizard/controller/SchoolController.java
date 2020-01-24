@@ -1,7 +1,10 @@
 package com.wildcodeschool.wildandwizard.controller;
 
 import com.wildcodeschool.wildandwizard.entity.School;
-import com.wildcodeschool.wildandwizard.repository.SchoolRepository;
+import com.wildcodeschool.wildandwizard.repository.CrudDao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SchoolController {
-
-    private SchoolRepository repository = new SchoolRepository();
+	
+	@Autowired
+	@Qualifier("schoolRepository")
+    private CrudDao<School> repository;;
 
     @GetMapping("/schools")
     public String getAll(Model model) {
